@@ -3,11 +3,11 @@ var net   = require('net');
 var _     = require('underscore');
 var clients = [];
 
-var emiter  = function(v){_.each(clients, function(c) {
+var emiter  = _.throttle(function(v){_.each(clients, function(c) {
   try {
     c.write(v + "\n")
   } catch (e) {}})
-};
+}, 5000);
 
 five.Board().on('ready', function() {
   var sensor = new five.Sensor("A0");
@@ -16,7 +16,6 @@ five.Board().on('ready', function() {
     var voltage = this.value * 0.004882814;
     var celsius = (voltage - 0.5) * 100;
     var fahrenheit = celsius * (9 / 5) + 32;
-
     emiter(~~fahrenheit + " F");
   });
 });
