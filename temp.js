@@ -24,7 +24,6 @@ five.Board().on('ready', function() {
 net.createServer(function(socket) {
   console.log("-- new connecton --");
   clients.push(socket);
-  socket.write("-- welcome to sam temp -- \n");
   socket.on('end', function() {
     clients.splice(clients.indexOf(socket), 1);
     socket.destroy();
