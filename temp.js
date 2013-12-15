@@ -27,4 +27,6 @@ net.createServer(function(socket) {
     clients.splice(clients.indexOf(socket), 1);
     socket.destroy();
   });
+
+  socket.on('error', function() {});
 }).listen(3000);
